@@ -1,0 +1,18 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  image: docker:latest
+  script:
+    - docker build -t my-html-app .
+  artifacts:
+    paths:
+      - my-html-app
+
+deploy:
+  stage: deploy
+  image: docker:latest
+  script:
+    - docker run -d -p 80:80 my-html-app
